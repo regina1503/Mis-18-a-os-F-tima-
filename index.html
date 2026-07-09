@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis 18 años F🪩</title>
+    
+    <!-- Metatags para vista previa en redes sociales -->
+    <meta property="og:title" content="Mis 18 años F🪩">
+    <meta property="og:description" content="¡Estás invitado a mis 18 años! No faltes.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/regina1503/Mis-18-a-os-F-tima-/main/portadas%2018%20fatima_20260709_171110_0000.jpg">
+    <meta property="og:type" content="website">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body { background: #000; color: white; font-family: 'Arial', sans-serif; overflow-x: hidden; margin: 0; padding: 0; }
+        .disco-ball { font-size: 96px; animation: spin 4s linear infinite; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        
+        .section { width: 100vw; position: relative; }
+        .img-fluid { width: 100%; display: block; }
+        
+        #overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: linear-gradient(135deg, #000428, #004e92); 
+            z-index: 1000; display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            transition: all 1s ease-out; 
+        }
+        
+        .nombre-fatima { 
+            font-family: 'Great Vibes', cursive; font-size: 5rem; color: #fff; 
+            text-shadow: 0 0 20px #00d4ff, 0 0 30px #00d4ff; 
+            margin-bottom: 0.5rem;
+        }
+        .titulo-mis18 { font-family: 'Montserrat', sans-serif; font-size: 1.28rem; margin-bottom: 2rem; }
+        
+        .btn-base { 
+            position: absolute; left: 50%; transform: translate(-50%, -50%);
+            background: #001e5e; color: white; padding: 15px 30px; border-radius: 9999px; 
+            font-weight: 700; font-size: 1.05rem; box-shadow: 0 5px 15px rgba(0,0,0,0.5); 
+            transition: transform 0.2s, background 0.2s; display: flex; align-items: center; 
+            justify-content: center; text-decoration: none; white-space: nowrap; min-width: 140px;
+        }
+        .btn-base:hover { transform: translate(-50%, -50%) scale(1.05); background: #00123d; }
+
+        #countdown {
+            position: absolute; top: 54%; left: 50%; transform: translate(-50%, -50%);
+            display: flex; gap: 10px; padding: 0;
+            text-align: center; font-weight: bold; font-size: 0.9rem; width: 90%; justify-content: center;
+            color: #001e5e;
+        }
+        .circle-num {
+            width: 45px; height: 45px; border: 2px solid #001e5e; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem; margin-bottom: 5px; color: #001e5e; font-weight: 800;
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="https://github.com/regina1503/Mis-18-a-os-F-tima-/raw/main/Aitana%20-%20SUPERESTRELLA%20Letra%20__%20cancion%20de%20la%20copa%20mundial%202026.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="overlay">
+        <div class="disco-ball mb-6">🪩</div>
+        <div class="nombre-fatima">Fátima</div>
+        <h1 class="titulo-mis18">Mis 18 Años</h1>
+        <button id="openBtn" class="bg-blue-600 px-10 py-4 rounded-full font-bold text-xl hover:scale-110 transition-transform shadow-lg animate-pulse border-2 border-white">
+            Abrir Invitación ✉️
+        </button>
+    </div>
+
+    <div class="section">
+        <img src="https://raw.githubusercontent.com/regina1503/Mis-18-a-os-F-tima-/main/1%20(2)_20260709_155659_0004.png" class="img-fluid" alt="Página 1">
+    </div>
+
+    <div class="section">
+        <img src="https://raw.githubusercontent.com/regina1503/Mis-18-a-os-F-tima-/main/2_20260709_164105_0001.jpg" class="img-fluid" alt="Página 2">
+        <a href="https://maps.app.goo.gl/KBrbisj2KjB7giyW7?g_st=ac" target="_blank" class="btn-base" style="top: 70%; gap: 8px;">
+           💙 Ver Ubicación
+        </a>
+    </div>
+
+    <div class="section">
+        <img src="https://raw.githubusercontent.com/regina1503/Mis-18-a-os-F-tima-/main/2%20(2)_20260709_164105_0002.jpg" class="img-fluid" alt="Página 3">
+        
+        <a href="https://wa.me/tu_numero" target="_blank" class="btn-base" style="top: 39%;">
+           Confirmar
+        </a>
+
+        <div id="countdown">
+            <div class="flex flex-col items-center">
+                <div class="circle-num"><span id="dias">0</span></div>
+                Días
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="circle-num"><span id="horas">0</span></div>
+                Hrs
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="circle-num"><span id="minutos">0</span></div>
+                Min
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="circle-num"><span id="segundos">0</span></div>
+                Seg
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const audio = document.getElementById('bgMusic');
+        const overlay = document.getElementById('overlay');
+        const openBtn = document.getElementById('openBtn');
+
+        openBtn.addEventListener('click', () => {
+            audio.currentTime = 12;
+            audio.play();
+            overlay.style.transform = 'scale(1.5)';
+            overlay.style.opacity = '0';
+            setTimeout(() => { overlay.style.display = 'none'; }, 1000);
+        });
+
+        const fechaEvento = new Date('2026-08-01T20:00:00').getTime();
+
+        function actualizarCuenta() {
+            const ahora = new Date().getTime();
+            const diferencia = fechaEvento - ahora;
+            document.getElementById('dias').innerText = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+            document.getElementById('horas').innerText = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById('minutos').innerText = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById('segundos').innerText = Math.floor((diferencia % (1000 * 60)) / 1000);
+        }
+        setInterval(actualizarCuenta, 1000);
+    </script>
+</body>
+</html>
+  
