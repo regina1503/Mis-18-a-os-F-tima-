@@ -192,10 +192,6 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-b);min-heig
             </div>
           </div>
         </div>
-        <div class="field">
-          <label>Restricción alimentaria (opcional)</label>
-          <input type="text" id="f-dietary" placeholder="Ej. vegetariano, sin gluten...">
-        </div>
       </div>
 
       <div id="no-fields" class="hidden">
@@ -452,7 +448,6 @@ async function submitRSVP(){
   const entry = {
     id, name, attending,
     qty: attending ? qty : 0,
-    dietary: attending ? document.getElementById('f-dietary').value.trim() : '',
     message: attending ? '' : document.getElementById('f-message').value.trim(),
     ts: Date.now()
   };
@@ -474,8 +469,7 @@ function showResult(entry){
     icon.className = 'result-icon yes'; icon.innerHTML = '<i class="ti ti-check"></i>';
     title.textContent = '¡Gracias, ' + entry.name.split(' ')[0] + '!';
     sub.textContent = 'Tu asistencia quedó confirmada. ¡Te esperamos!';
-    details.innerHTML = `<div class="result-detail"><span>Personas</span><span>${entry.qty}</span></div>` +
-      (entry.dietary ? `<div class="result-detail"><span>Restricción</span><span>${escapeHtml(entry.dietary)}</span></div>` : '');
+    details.innerHTML = `<div class="result-detail"><span>Personas</span><span>${entry.qty}</span></div>`;
   } else {
     icon.className = 'result-icon no'; icon.innerHTML = '<i class="ti ti-heart-off"></i>';
     title.textContent = 'Lamentamos que no puedas ir';
@@ -486,7 +480,6 @@ function showResult(entry){
 
 function resetForm(){
   document.getElementById('f-name').value = '';
-  document.getElementById('f-dietary').value = '';
   document.getElementById('f-message').value = '';
   attending = null; qty = 1;
   document.getElementById('btn-yes').classList.remove('selected');
@@ -561,7 +554,7 @@ function renderAdmin(){
   }
   list.innerHTML = rsvps.map(r=>{
     const meta = r.attending
-      ? `${r.qty} persona${r.qty>1?'s':''}${r.dietary ? ' · '+escapeHtml(r.dietary) : ''}`
+      ? `${r.qty} persona${r.qty>1?'s':''}`
       : (r.message ? escapeHtml(r.message) : 'Sin mensaje');
     return `<div class="rsvp-row">
       <div style="flex:1;min-width:0">
@@ -591,10 +584,10 @@ async function executeDelete(){
 
 function exportCSV(){
   if(!rsvps.length){ showToast('No hay respuestas para exportar','ti-alert-circle'); return; }
-  const header = ['Nombre','Asiste','Personas','Restricción/Mensaje','Fecha de respuesta'];
+  const header = ['Nombre','Asiste','Personas','Mensaje','Fecha de respuesta'];
   const rows = rsvps.map(r=>[
     r.name, r.attending ? 'Sí' : 'No', r.qty||0,
-    r.attending ? (r.dietary||'') : (r.message||''),
+    r.attending ? '' : (r.message||''),
     new Date(r.ts).toLocaleString('es-MX')
   ]);
   const csv = 'data:text/csv;charset=utf-8,\uFEFF' + [header.join(','), ...rows.map(row=>row.map(v=>`"${v}"`).join(','))].join('\n');
